@@ -69,7 +69,7 @@ def timed_input(prompt, timeout=10):
 
 def get_user_name():
     """Demande et retourne le pseudo du joueur."""
-    name = input(f"{C_INFO}Je suis Python. Quel est votre pseudo ? {C_RESET}")
+    name = input(f"{C_INFO}Je suis le Croupier. Quel est votre pseudo ? {C_RESET}")
     return name.strip() or "Joueur"
 
 
