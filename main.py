@@ -17,10 +17,15 @@ import random
 import threading
 import time
 import sys
+import os
 from colorama import init, Fore, Style
 
 # Initialiser colorama pour que les couleurs s'affichent bien sous Windows
 init()
+
+def clear_console():
+    """Efface le contenu de la console pour un rendu plus propre."""
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 # Couleurs pour faciliter l'affichage
 C_INFO = Fore.CYAN + Style.BRIGHT
@@ -221,6 +226,7 @@ def play_level(level, solde, stats):
 
 def display_welcome_menu():
     """Affiche le menu principal et retourne le choix de l'utilisateur."""
+    clear_console()
     while True:
         print(f"\n{C_SUCCESS}{'='*40}")
         print(f"      🎰 BIENVENUE AU CASINO PYTHON 🎰")
@@ -260,6 +266,7 @@ def main():
         stats = init_stats()
 
         if ask_show_rules():
+            clear_console()
             display_rules()
 
 
@@ -270,6 +277,7 @@ def main():
             stats = init_stats()
             # boucle de niveaux tant que le joueur a des crédits
             while level <= 3 and solde > 0:
+                clear_console()
                 solde, action = play_level(level, solde, stats)
                 if action == "next_level":
                     level += 1
@@ -282,9 +290,11 @@ def main():
                     f"{C_ERROR}Désolé, vous n'avez plus de crédit.{C_RESET}",
                     f"{C_INFO}La partie va redémarrer avec 10 € de départ.{C_RESET}"
                 ])
+                time.sleep(2)
                 continue  # recommence la partie depuis le début
             
             # sinon sortie normale
+            clear_console()
             print(f"{C_SUCCESS}Au revoir {name}, vous finissez la partie avec {solde} €.{C_RESET}")
             # préparer les données de la partie et sauvegarder
             party_data = {
